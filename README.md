@@ -28,9 +28,9 @@ Karena ekstensi ini belum ada di Chrome Web Store, kamu harus memasangnya secara
 
 ---
 
-##  Panduan Penggunaan (Metode Cicil Data)
+##  Panduan Penggunaan (Metode Cicil Data) SUDAH OTOMATIS
 
-Agar CV kamu lengkap dan Summary terekstrak dengan benar, ikuti urutan ekstraksi berikut ini:
+Agar CV kamu lengkap dan Summary terekstrak dengan benar, ikuti urutan ekstraksi berikut ini: (ABAIKAN SAJA)
 
 ### Langkah 1: Ekstrak Profil Utama & Summary
 
