@@ -1,4 +1,4 @@
-# 🚀 IKI CV: LinkedIn Profile to ATS/Visual CV
+# IKI CV: LinkedIn Profile to ATS/Visual CV
 
 # <center><img src="logo.png" width="100%"></center>
 
@@ -6,7 +6,7 @@
 
 **IKI CV** adalah ekstensi Google Chrome yang dikembangkan untuk mempermudah pembuatan CV profesional langsung dari data LinkedIn. Ekstensi ini sangat berguna bagi mahasiswa yang ingin memiliki CV bersih dan ATS-friendly tanpa harus menyusun ulang dari nol.
 
-## ✨ Fitur Unggulan
+##  Fitur Unggulan
 
 * **Sistem Accumulator (Memoization)**: Simpan data secara bertahap. Kamu bisa mengambil profil di halaman utama, lalu pindah ke halaman detail untuk mengambil pendidikan/skill tanpa menimpa data sebelumnya.
 * **Live Editing Mode**: CV yang dihasilkan bisa diedit langsung di browser (cukup klik pada teks) untuk memperbaiki salah ketik atau menghapus bagian yang tidak perlu sebelum di-print.
@@ -15,19 +15,20 @@
 
 ---
 
-## 🛠️ Langkah-Langkah Instalasi
+##  Langkah-Langkah Instalasi
 
 Karena ekstensi ini belum ada di Chrome Web Store, kamu harus memasangnya secara manual melalui **Developer Mode**:
 
-1. **Download Source Code**: Unduh repositori ini dan ekstrak foldernya (pastikan berisi `manifest.json`, `popup.html`, `content.js`, dll).
-2. **Buka Kelola Ekstensi**: Buka Chrome dan ketik `chrome://extensions/` di address bar.
-3. **Aktifkan Developer Mode**: Geser sakelar **Developer mode** di pojok kanan atas ke posisi **On**.
-4. **Load Unpacked**: Klik tombol **Load unpacked** di pojok kiri atas.
-5. **Pilih Folder**: Pilih folder proyek **IKI CV** yang sudah kamu ekstrak tadi. Ekstensi sekarang akan muncul di daftar Chrome kamu.
+1. **Download Source Code**: Unduh repositori ini Klik tombol hijau bertuliskan "Code" di bagian atas halaman ini, lalu pilih "Download ZIP".
+2. **Ekstrak File: Buka folder unduhan Anda, klik kanan pada file ZIP tersebut, dan pilih "Extract All" atau "Ekstrak di sini". Anda akan mendapatkan sebuah folder bernama iki-cv.dan ekstrak foldernya (pastikan berisi `manifest.json`, `popup.html`, `content.js`, dll).**
+3. **Buka Kelola Ekstensi**: Buka Chrome dan ketik `chrome://extensions/` di address bar.
+4. **Aktifkan Developer Mode**: Geser sakelar **Developer mode** di pojok kanan atas ke posisi **On**.
+5. **Load Unpacked**: Klik tombol **Load unpacked** di pojok kiri atas.
+6. **Pilih Folder**: Pilih folder proyek **IKI CV** yang sudah kamu ekstrak tadi. Ekstensi sekarang akan muncul di daftar Chrome kamu.
 
 ---
 
-## 📖 Panduan Penggunaan (Metode Cicil Data)
+##  Panduan Penggunaan (Metode Cicil Data)
 
 Agar CV kamu lengkap dan Summary terekstrak dengan benar, ikuti urutan ekstraksi berikut ini:
 
