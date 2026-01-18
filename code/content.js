@@ -56,7 +56,8 @@
       experience: [],
       education: [],
       certifications: [],
-      skills: []
+      skills: [],
+      languanges: []
     };
 
     
@@ -90,6 +91,13 @@
       data.skills = extractList("skill")
         .flat()
         .filter(s => s.length > 2 && !s.toLowerCase().includes("endorsement"));
+    }
+
+    if (url.includes("/details/languages")) {
+        data.languages = extractList("language").map(i => ({
+        name: i[0] || "",
+        proficiency: i[1] || "" 
+      }));
     }
 
     return data;
