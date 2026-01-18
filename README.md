@@ -1,6 +1,6 @@
 # 🚀 IKI CV: LinkedIn Profile to ATS/Visual CV
 
-# <img src="logo.png" alt="IKI CV Logo" width="100"> IKI CV
+# <center><img src="logo.png" width="100%"></center>
 
 > **LinkedIn Profile to ATS/Visual CV**
 
