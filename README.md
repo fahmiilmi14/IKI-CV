@@ -4,7 +4,7 @@
 
 > **LinkedIn Profile to ATS/Visual CV**
 
-**IKI CV** adalah ekstensi Google Chrome yang dikembangkan untuk mempermudah pembuatan CV profesional langsung dari data LinkedIn. Ekstensi ini sangat berguna bagi mahasiswa yang ingin memiliki CV bersih dan ATS-friendly tanpa harus menyusun ulang dari nol.
+**IKI CV** adalah ekstensi Google Chrome yang dikembangkan untuk mempermudah pembuatan CV profesional langsung dari data LinkedIn. Ekstensi ini sangat berguna bagi mahasiswa maupun masyarakat umum yang ingin memiliki CV bersih dan ATS-friendly tanpa harus menyusun ulang dari nol.
 
 ##  Fitur Unggulan
 
