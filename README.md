@@ -51,13 +51,23 @@ Agar CV kamu lengkap dan Summary terekstrak dengan benar, ikuti urutan ekstraksi
 2. Pada halaman detail tersebut, klik kembali tombol **Extract LinkedIn Profile**.
 3. Ulangi hingga semua bagian yang kamu inginkan terekstrak.
 
-### Langkah 4: Finalisasi & Download
+### Langkah 4: Jika Semua Halaman Udah Di ekstrak,
+KEMBALI KE HALAMAN UTAMA PROFIL LINKEDIN ANDA DAN KLIK **Extract LinkedIn Profile**.
+
+### Langkah 5: Finalisasi & Download
 
 1. Klik tombol **Generate ATS CV** pada popup ekstensi.
 2. **Edit Langsung**: Jika ada teks `undefined` atau salah ketik, klik langsung pada teks tersebut di halaman CV untuk mengubah atau menghapusnya.
 3. **Download**: Klik tombol **Download PDF** untuk menyimpan CV kamu.
 
 ---
+
+## DOKUMENTASI
+<center><img src="assets/foto1.png" width="50%"></center>
+<center><img src="assets/foto2.png" width="50%"></center>
+<center><img src="assets/foto3.png" width="50%"></center>
+<center><img src="assets/foto4.png" width="50%"></center>
+
 
 ## ⚠️ Troubleshooting
 
