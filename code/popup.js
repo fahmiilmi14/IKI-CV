@@ -1,105 +1,109 @@
-function resetButton(btn) {
-  btn.disabled = false;
-  btn.textContent = "Extract LinkedIn Profile";
-}
+const detailPages = [
+    "details/experience/",
+    "details/education/",
+    "details/certifications/",
+    "details/skills/",
+    "details/languages/"
+];
 
-async function extract() {
-  const btn = document.getElementById("extract");
-  const output = document.getElementById("output");
+async function startAutoExtract() {
+    const button = document.getElementById("extract");
+    button.disabled = true;
+    button.textContent = "Processing...";
 
-  btn.disabled = true;
-  btn.textContent = "Extracting...";
-
-  try {
-    const [tab] = await chrome.tabs.query({
-      active: true,
-      currentWindow: true
-    });
-
-    if (!tab.url.includes("linkedin.com")) {
-      alert("Buka halaman LinkedIn dulu");
-      resetButton(btn);
-      return;
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    
+    if (!tab.url.includes("linkedin.com/in/")) {
+        alert("Harap buka halaman profil LinkedIn Anda terlebih dahulu!");
+        button.disabled = false;
+        button.textContent = "Extract LinkedIn Profile";
+        return;
     }
 
-    chrome.tabs.sendMessage(
-      tab.id,
-      { action: "SCRAPE_PROFILE" },
-      (res) => {
-        resetButton(btn);
+    const baseUrl = tab.url.split('/?')[0];
 
-        if (chrome.runtime.lastError || !res) {
-          alert("Gagal extract. Refresh halaman LinkedIn.");
-          return;
-        }
+    button.textContent = "Extracting Main Profile...";
+    await performScrape(tab.id);
 
-        chrome.storage.local.get(["cvData"], (old) => {
-          const prev = old.cvData || {
-            experience: [],
-            education: [],
-            certifications: [],
-            skills: []
-          };
+    
+    for (const page of detailPages) {
+        const targetUrl = baseUrl.endsWith('/') ? `${baseUrl}${page}` : `${baseUrl}/${page}`;
+        button.textContent = `Navigating to ${page.split('/')[1]}...`;
 
-          const merged = {
-            name: res.name || prev.name || "",
-            headline: res.headline || prev.headline || "",
-            location: res.location || prev.location || "",
-            summary: res.summary || prev.summary || "",
+        await chrome.tabs.update(tab.id, { url: targetUrl });
+        await waitTabComplete(tab.id);
 
-            experience: res.experience?.length
-              ? res.experience
-              : prev.experience,
+        button.textContent = `Scraping ${page.split('/')[1]}...`;
+        await performScrape(tab.id);
+    }
 
-            education: res.education?.length
-              ? res.education
-              : prev.education,
+    
+    button.textContent = "Final Sync: Returning to Main Profile...";
+    await chrome.tabs.update(tab.id, { url: baseUrl });
+    await waitTabComplete(tab.id);
+    await performScrape(tab.id);
 
-            certifications: res.certifications?.length
-              ? res.certifications
-              : prev.certifications,
+    button.disabled = false;
+    button.textContent = "Extract LinkedIn Profile";
+    alert("Ekstraksi Otomatis Selesai! Data Anda telah disinkronkan.");
+}
 
-            skills: [
-              ...new Set([...(prev.skills || []), ...(res.skills || [])])
-            ]
-          };
 
-          chrome.storage.local.set({ cvData: merged }, () => {
-            output.textContent = JSON.stringify(merged, null, 2);
-          });
+function waitTabComplete(tabId) {
+    return new Promise(resolve => {
+        chrome.tabs.onUpdated.addListener(function listener(tId, info) {
+            if (tId === tabId && info.status === 'complete') {
+                chrome.tabs.onUpdated.removeListener(listener);
+                setTimeout(resolve, 3000); 
+            }
         });
-      }
-    );
-  } catch (e) {
-    console.error(e);
-    resetButton(btn);
-  }
-}
-
-function generateCV(mode) {
-  chrome.storage.local.get(["cvData"], (res) => {
-    if (!res.cvData || !res.cvData.name) {
-      alert("Extract profil utama dulu");
-      return;
-    }
-
-    chrome.storage.local.set({ cvMode: mode }, () => {
-      chrome.tabs.create({
-        url: chrome.runtime.getURL("cv.html")
-      });
     });
-  });
 }
 
-document.getElementById("extract").onclick = extract;
-document.getElementById("ats").onclick = () => generateCV("ATS");
-document.getElementById("visual").onclick = () => generateCV("VISUAL");
+function performScrape(tabId) {
+    return new Promise((resolve) => {
+        chrome.tabs.sendMessage(tabId, { action: "SCRAPE_PROFILE" }, (res) => {
+            if (!res) return resolve();
+
+            chrome.storage.local.get(["cvData"], (result) => {
+                let oldData = result.cvData || { 
+                    experience: [], 
+                    education: [], 
+                    certifications: [], 
+                    skills: [], 
+                    languages: [] 
+                };
+                
+                const mergedData = {
+                    name: res.name || oldData.name || "",
+                    headline: res.headline || oldData.headline || "",
+                    location: res.location || oldData.location || "",
+                    summary: res.summary || oldData.summary || "",
+                    experience: res.experience.length > 0 ? res.experience : oldData.experience,
+                    education: res.education.length > 0 ? res.education : oldData.education,
+                    certifications: res.certifications.length > 0 ? res.certifications : oldData.certifications,
+                    languages: (res.languages && res.languages.length > 0) ? res.languages : oldData.languages || [],
+                    skills: [...new Set([...(oldData.skills || []), ...(res.skills || [])])]
+                };
+
+                chrome.storage.local.set({ cvData: mergedData }, resolve);
+            });
+        });
+    });
+}
+
+
+document.getElementById("extract").onclick = startAutoExtract;
+
+document.getElementById("ats").onclick = () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL("cv.html") });
+};
 
 document.getElementById("reset").onclick = () => {
-  if (confirm("Hapus semua data CV?")) {
-    chrome.storage.local.remove("cvData", () => {
-      document.getElementById("output").textContent = "";
-      alert("Data direset");
-    });
-  }
+    if (confirm("Apakah Anda yakin ingin menghapus semua data CV yang tersimpan?")) {
+        chrome.storage.local.remove("cvData", () => {
+            alert("Data berhasil dihapus!");
+            location.reload(); 
+        });
+    }
 };
